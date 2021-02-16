@@ -1,0 +1,19 @@
+{
+  "name": "rip-van-winkle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [
+    "fairy tales",
+    "sleep",
+    "await"
+  ],
+  "author": "Jon Newton <newt@hey.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrnewton/rip-van-winkle.git"
+  },
+  "homepage": "https://github.com/jrnewton/rip-van-winkle",
+  "description": "A silly npm module.  By default sleep for 20 years.  Use optional arg to wake up with a catch.",
+  "devDependencies": {}
+}
