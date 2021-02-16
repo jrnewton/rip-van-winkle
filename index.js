@@ -1,25 +1,41 @@
-const MAX_SIGNED_INT = 2147483647;
-const TWENTY_YEARS = 631139040000;
-let count = 0;
+const DEFAULT_INTERVAL = 2147483647; /* MAX INTEGER 32           */
+let countdown = 631139040000;        /* 20 years in milliseconds */
+let sleepTimeoutHandle = null;
 
-const rip = async (wakeAfter) => {
-  return new Promise((resolve, reject) => {
-    const id = setTimeout(() => {
-      count += MAX_SIGNED_INT;
-      if (count >= TWENTY_YEARS) {
-        resolve('Yawn.  Where\'s my musket?');
-      }
-      else {
-        resolve(rip);
-      }
-    }, MAX_SIGNED_INT);
+const main = async (wakeAfter = 0) => {
+  const promise = sleep(countdown);
 
-    if (wakeAfter) {
+  if (wakeAfter) {
+    return new Promise((_, reject) => {
       setTimeout(() => {
-        clearTimeout(id);
-        reject();
+        clearTimeout(sleepTimeoutHandle);
+        return reject('Huh... what... Are they still bowling?');
       }, wakeAfter);
-    }
+    });
+  }
+  else {
+    return promise;
+  }
+}
+
+const sleep = async (countdown) => {
+  if (countdown <= 0) {
+    return Promise.resolve('<yawn>... Where\'s Wolf?');
+  }
+
+  let interval = DEFAULT_INTERVAL;
+
+  if (countdown - interval <= 0) {
+    interval = countdown;
+  }
+
+  const promise = new Promise((resolve) => {
+    sleepTimeoutHandle = setTimeout(() => {
+      resolve(sleep(countdown - interval));
+    }, interval);
   });
+
+  return promise;
 };
-module.exports.default = rip;
+
+module.exports.default = main;

@@ -2,10 +2,10 @@ const sleep = require('./index').default;
 (async() => {
   try {
     console.log('Hmmm.  What\'s this liquor...');
-    await sleep(5000);
-    console.log('Where\'s Wolf?');
+    const firstWords = await sleep(60000); //wake after 1 minute
+    console.log(firstWords);
   }
-  catch (error) {
-    console.log('Huh what... Is the bowling over?');
+  catch (rudeAwakening) {
+    console.log(rudeAwakening);
   }
 })();
